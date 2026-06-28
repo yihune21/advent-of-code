@@ -9,13 +9,15 @@ class SecretEntrance {
 	int zeroCountDuringRotation = 0;
 	int getPassword(String path){
 	    readFile(path);
-	    return  zeroCountAfterRotation +  zeroCountDuringRotation ;
+	    return  zeroCountDuringRotation + zeroCountAfterRotation;
 	}
 
 	void leftParser(String instruction){
 	        String rotation = instruction.substring(1);
 	        int rot = Integer.parseInt(rotation);
-		
+
+		zeroCountDuringRotation += leftZeroCounter(currentDial , rot);
+
 		currentDial = (currentDial - rot) % 100;
                
 		if(currentDial < 0){
@@ -30,7 +32,8 @@ class SecretEntrance {
 	void rightParser(String instruction){
 	        String rotation = instruction.substring(1);
 	        int rot = Integer.parseInt(rotation);
-                
+
+		zeroCountDuringRotation += rightZeroCounter(currentDial , rot);
 		currentDial = (currentDial + rot) % 100;
 		
 		if (currentDial == 0){
@@ -39,22 +42,38 @@ class SecretEntrance {
 	}
 
 	int leftZeroCounter(int currentDial , int rotation){
-	    int zerCount = 0;
-	    for(){
-	    
+	    int zeroCount = 0;
+	    for(int i = 1; i < rotation ;i++){
+	          currentDial = (currentDial - 1 ) % 100;
+		  if(currentDial < 0 ){
+		     currentDial = currentDial % 100;
+		     if (currentDial < 0) {
+		        currentDial += 100;
+		     }
+		  }
+
+		  if(currentDial == 0){
+			  zeroCount += 1;
+		  } 
 	    }
 
-
+            return zeroCount;
 	}
         
 	int rightZeroCounter(int currentDial , int rotation){
-	    int zerCount = 0;
-
-	    for(){
-	    
+	    int zeroCount = 0;
+	    for(int i = 1; i < rotation;i++){
+	          currentDial = currentDial + 1;
+		  if(currentDial > 99){
+		     currentDial  = currentDial % 100;
+		  }
+		  if(currentDial == 0){
+			zeroCount += 1;
+		  } 
 	    }
 
-
+	    return zeroCount;
+            
 	}
  
 	void readFile(String path){
@@ -77,8 +96,15 @@ class SecretEntrance {
        
 	void main(){
 	   SecretEntrance se = new SecretEntrance();
-	   int password = se.getPassword("inputs/test.txt");
+	   int password = se.getPassword("inputs/day-01.txt");
+	   String afterCounter = String.format("Zero After Rotation : %d",se.zeroCountAfterRotation);
+           String duringCounter = String.format("Zero During Rotation : %d",se.zeroCountDuringRotation);
+
+          IO.println(afterCounter);
+	  IO.println(duringCounter);
 	   String strPassword =  String.format("The Password is: %d",password);
 	   IO.println(strPassword);
+
+
 	}
 }
