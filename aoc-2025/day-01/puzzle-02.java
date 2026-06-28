@@ -21,8 +21,7 @@ class SecretEntrance {
 		if(currentDial < 0){
 		   currentDial += 100;
 		}
-	       
-	       	zeroCountDuringRotation += (currentDial - rot) / 100;
+	      
 		
 		if (currentDial == 0){
 		   zeroCountAfterRotation += 1;
@@ -32,14 +31,32 @@ class SecretEntrance {
 	        String rotation = instruction.substring(1);
 	        int rot = Integer.parseInt(rotation);
                 
-                zeroCountDuringRotation += (currentDial + rot) / 100;
 		currentDial = (currentDial + rot) % 100;
 		
 		if (currentDial == 0){
 		   zeroCountAfterRotation += 1;
 		}	
 	}
+
+	int leftZeroCounter(int currentDial , int rotation){
+	    int zerCount = 0;
+	    for(){
+	    
+	    }
+
+
+	}
         
+	int rightZeroCounter(int currentDial , int rotation){
+	    int zerCount = 0;
+
+	    for(){
+	    
+	    }
+
+
+	}
+ 
 	void readFile(String path){
 	    try(BufferedReader in = new BufferedReader(new FileReader(path))){
 		  String instruction = in.readLine();
